@@ -12,12 +12,16 @@ export default function CheckoutModal() {
   const total = getTotal();
 
   const handlePlaceOrder = async () => {
-    if (!user) return;
+    if (!user) {
+      alert("Please log in to place an order");
+      return;
+    }
     
     setIsSubmitting(true);
     try {
+      let allSuccessful = true;
       for (const item of items) {
-        await fetch("/api/purchases", {
+        const response = await fetch("/api/purchases", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -26,13 +30,24 @@ export default function CheckoutModal() {
             projectName: item.title,
             projectId: item.id,
             amount: Math.round(item.price * 100),
-            currency: "USDT",
+            currency: "USD",
           }),
         });
+        
+        if (!response.ok) {
+          allSuccessful = false;
+          console.error("Failed to save purchase:", await response.text());
+        }
       }
-      setOrderPlaced(true);
+      
+      if (allSuccessful) {
+        setOrderPlaced(true);
+      } else {
+        alert("Some items could not be saved. Please try again.");
+      }
     } catch (error) {
       console.error("Failed to place order:", error);
+      alert("Failed to place order. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
