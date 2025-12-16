@@ -13,6 +13,7 @@ import AboutSection from "./components/ui/AboutSection";
 import ProjectsSection from "./components/ui/ProjectsSection";
 import ContactSection from "./components/ui/ContactSection";
 import LoginPage from "./pages/LoginPage";
+import AdminPanel from "./components/ui/AdminPanel";
 import { useNavigation } from "./lib/stores/useNavigation";
 import { useAudio } from "./lib/stores/useAudio";
 import { useAuth } from "./lib/stores/useAuth";
@@ -148,6 +149,9 @@ function App() {
         <div className="instructions">
           <p>WASD to navigate • E to interact • M to toggle audio • R to reset</p>
         </div>
+
+        {/* Admin Panel */}
+        <AdminPanel />
       </KeyboardControls>
     </div>
   );
