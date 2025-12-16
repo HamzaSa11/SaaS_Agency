@@ -7,6 +7,7 @@ export default function ProjectsSection() {
       description: "Advanced networking protocol for quantum communication systems",
       progress: 87,
       category: "PROTOCOL",
+      githubUrl: "https://github.com/microsoft/QNEAT",
     },
     {
       id: "neural-02", 
@@ -15,6 +16,7 @@ export default function ProjectsSection() {
       description: "AI-powered rendering engine with neural enhancement capabilities",
       progress: 65,
       category: "ENGINE",
+      githubUrl: "https://github.com/tensorflow/tensorflow",
     },
     {
       id: "holo-03",
@@ -23,6 +25,7 @@ export default function ProjectsSection() {
       description: "Holographic display system for immersive user experiences",
       progress: 43,
       category: "DISPLAY",
+      githubUrl: "https://github.com/mrdoob/three.js",
     },
     {
       id: "sync-04",
@@ -31,6 +34,7 @@ export default function ProjectsSection() {
       description: "Time synchronization framework for distributed systems",
       progress: 21,
       category: "FRAMEWORK",
+      githubUrl: "https://github.com/cockroachdb/cockroach",
     },
   ];
 
@@ -88,7 +92,14 @@ export default function ProjectsSection() {
               
               <div className="project-actions">
                 <button className="project-button">VIEW DETAILS</button>
-                <button className="project-button secondary">MONITOR</button>
+                <a 
+                  href={project.githubUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="project-button secondary"
+                >
+                  MONITOR
+                </a>
               </div>
               
               <div className="project-border"></div>
