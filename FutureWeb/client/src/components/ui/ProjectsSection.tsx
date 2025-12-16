@@ -1,4 +1,7 @@
+import { useCart } from "../../lib/stores/useCart";
+
 export default function ProjectsSection() {
+  const { addItem, removeItem, isInCart } = useCart();
   const projects = [
     {
       id: "quantum-01",
@@ -90,8 +93,46 @@ export default function ProjectsSection() {
                 </div>
               </div>
               
+              <div className="project-price">
+                <span className="price-amount">29.99</span>
+                <span className="price-currency">USDT/mo</span>
+              </div>
+
               <div className="project-actions">
-                <button className="project-button">VIEW DETAILS</button>
+                <button 
+                  className={`project-button cart-btn ${isInCart(project.id) ? 'in-cart' : ''}`}
+                  onClick={() => {
+                    if (isInCart(project.id)) {
+                      removeItem(project.id);
+                    } else {
+                      addItem({
+                        id: project.id,
+                        title: project.title,
+                        category: project.category,
+                        price: 29.99,
+                        currency: "USDT",
+                      });
+                    }
+                  }}
+                >
+                  {isInCart(project.id) ? (
+                    <>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                      </svg>
+                      IN CART
+                    </>
+                  ) : (
+                    <>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <circle cx="9" cy="21" r="1"/>
+                        <circle cx="20" cy="21" r="1"/>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                      </svg>
+                      ADD TO CART
+                    </>
+                  )}
+                </button>
                 <a 
                   href={project.githubUrl} 
                   target="_blank" 

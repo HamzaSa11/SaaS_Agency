@@ -14,6 +14,9 @@ import ProjectsSection from "./components/ui/ProjectsSection";
 import ContactSection from "./components/ui/ContactSection";
 import LoginPage from "./pages/LoginPage";
 import AdminPanel from "./components/ui/AdminPanel";
+import CartDrawer from "./components/ui/CartDrawer";
+import CheckoutModal from "./components/ui/CheckoutModal";
+import FloatingCartButton from "./components/ui/FloatingCartButton";
 import { useNavigation } from "./lib/stores/useNavigation";
 import { useAudio } from "./lib/stores/useAudio";
 import { useAuth } from "./lib/stores/useAuth";
@@ -152,6 +155,11 @@ function App() {
 
         {/* Admin Panel */}
         <AdminPanel />
+
+        {/* Cart Components */}
+        <FloatingCartButton />
+        <CartDrawer />
+        <CheckoutModal />
       </KeyboardControls>
     </div>
   );
