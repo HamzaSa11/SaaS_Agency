@@ -316,7 +316,33 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin: 0;
-  text-shadow: 0 0 30px rgba(156, 163, 175, 0.3);
+  text-shadow: 
+    0 0 10px rgba(156, 163, 175, 0.8),
+    0 0 20px rgba(156, 163, 175, 0.6),
+    0 0 40px rgba(0, 255, 255, 0.4),
+    0 0 80px rgba(0, 255, 255, 0.2),
+    0 2px 4px rgba(0, 0, 0, 0.5);
+  animation: titleGlow 3s ease-in-out infinite alternate;
+  position: relative;
+}
+
+@keyframes titleGlow {
+  0% {
+    text-shadow: 
+      0 0 10px rgba(156, 163, 175, 0.8),
+      0 0 20px rgba(156, 163, 175, 0.6),
+      0 0 40px rgba(0, 255, 255, 0.4),
+      0 0 80px rgba(0, 255, 255, 0.2),
+      0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  100% {
+    text-shadow: 
+      0 0 15px rgba(156, 163, 175, 1),
+      0 0 30px rgba(156, 163, 175, 0.8),
+      0 0 60px rgba(0, 255, 255, 0.6),
+      0 0 100px rgba(0, 255, 255, 0.3),
+      0 2px 4px rgba(0, 0, 0, 0.5);
+  }
 }
 
 .title-line {
@@ -484,7 +510,33 @@ body {
   text-transform: uppercase;
   letter-spacing: 3px;
   margin: 0;
-  text-shadow: 0 0 30px rgba(156, 163, 175, 0.2);
+  text-shadow: 
+    0 0 8px rgba(156, 163, 175, 0.7),
+    0 0 16px rgba(156, 163, 175, 0.5),
+    0 0 32px rgba(0, 255, 255, 0.3),
+    0 0 64px rgba(0, 255, 255, 0.15),
+    0 2px 4px rgba(0, 0, 0, 0.4);
+  animation: sectionGlow 4s ease-in-out infinite alternate;
+  position: relative;
+}
+
+@keyframes sectionGlow {
+  0% {
+    text-shadow: 
+      0 0 8px rgba(156, 163, 175, 0.7),
+      0 0 16px rgba(156, 163, 175, 0.5),
+      0 0 32px rgba(0, 255, 255, 0.3),
+      0 0 64px rgba(0, 255, 255, 0.15),
+      0 2px 4px rgba(0, 0, 0, 0.4);
+  }
+  100% {
+    text-shadow: 
+      0 0 12px rgba(156, 163, 175, 0.9),
+      0 0 24px rgba(156, 163, 175, 0.7),
+      0 0 48px rgba(0, 255, 255, 0.5),
+      0 0 80px rgba(0, 255, 255, 0.25),
+      0 2px 4px rgba(0, 0, 0, 0.4);
+  }
 }
 
 .title-accent {
