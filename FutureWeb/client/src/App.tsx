@@ -148,11 +148,6 @@ function App() {
           {currentSection === 'contact' && <ContactSection />}
         </div>
 
-        {/* Instructions */}
-        <div className="instructions">
-          <p>WASD to navigate • E to interact • M to toggle audio • R to reset</p>
-        </div>
-
         {/* Admin Panel */}
         <AdminPanel />
 

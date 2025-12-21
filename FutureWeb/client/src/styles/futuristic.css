@@ -12,7 +12,7 @@
   --bg-darker: #050505;
   --bg-darkest: #000000;
   --text-primary: #ffffff;
-  --text-secondary: #888899;
+  --text-secondary: #ffffff;
   --text-tertiary: #555566;
   --border-glow: #00ffff;
   --border-secondary: #ff00ff;
@@ -344,10 +344,11 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  height: 100vh;
   padding: 2rem;
   text-align: center;
   position: relative;
+  overflow: hidden;
 }
 
 .hero-content {
