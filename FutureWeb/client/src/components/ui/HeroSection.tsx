@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 export default function HeroSection() {
   const [typedText, setTypedText] = useState("");
+  const [isHovered, setIsHovered] = useState(false);
   const fullText = "WELCOME TO THE FUTURE";
 
   useEffect(() => {
@@ -17,12 +18,19 @@ export default function HeroSection() {
     return () => clearInterval(timer);
   }, []);
 
+  const handleHeaderClick = () => {
+    const container = document.querySelector('.content-container');
+    if (container) {
+      container.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="hero-section">
       <div className="hero-content">
-        <div className="hero-header">
-          <h1 className="hero-title">
-            <span className="title-line">{typedText}</span>
+        <div className="hero-header" onClick={handleHeaderClick}>
+          <h1 className="hero-title" style={{ cursor: 'pointer' }} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+            <span className={`title-line ${isHovered ? 'hover' : ''}`}>{typedText}</span>
             <span className="cursor">|</span>
           </h1>
           <div className="title-underline"></div>

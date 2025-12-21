@@ -17,7 +17,6 @@ import AdminPanel from "./components/ui/AdminPanel";
 import CartDrawer from "./components/ui/CartDrawer";
 import CheckoutModal from "./components/ui/CheckoutModal";
 import FloatingCartButton from "./components/ui/FloatingCartButton";
-import { Interface } from "./components/ui/interface";
 import { useNavigation } from "./lib/stores/useNavigation";
 import { useAudio } from "./lib/stores/useAudio";
 import { useAuth } from "./lib/stores/useAuth";
@@ -161,9 +160,6 @@ function App() {
         <FloatingCartButton />
         <CartDrawer />
         <CheckoutModal />
-
-        {/* Game Interface */}
-        <Interface />
       </KeyboardControls>
     </div>
   );
