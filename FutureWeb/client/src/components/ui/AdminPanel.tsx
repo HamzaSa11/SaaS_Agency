@@ -21,12 +21,22 @@ interface Purchase {
   purchaseTime: string;
 }
 
+interface Review {
+  id: number;
+  userId: number;
+  username: string;
+  rating: number;
+  comment: string;
+  createdAt: string;
+}
+
 export default function AdminPanel() {
   const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [loginEvents, setLoginEvents] = useState<LoginEvent[]>([]);
   const [purchases, setPurchases] = useState<Purchase[]>([]);
-  const [activeTab, setActiveTab] = useState<"logins" | "projects">("logins");
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [activeTab, setActiveTab] = useState<"logins" | "projects" | "reviews">("logins");
   const [isLoading, setIsLoading] = useState(false);
 
   const isAdmin = user?.username === "admin";
@@ -40,9 +50,10 @@ export default function AdminPanel() {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const [loginsRes, purchasesRes] = await Promise.all([
+      const [loginsRes, purchasesRes, reviewsRes] = await Promise.all([
         fetch("/api/login-events"),
         fetch("/api/purchases"),
+        fetch("/api/reviews"),
       ]);
       
       if (loginsRes.ok) {
@@ -53,6 +64,11 @@ export default function AdminPanel() {
       if (purchasesRes.ok) {
         const purchasesData = await purchasesRes.json();
         setPurchases(purchasesData);
+      }
+
+      if (reviewsRes.ok) {
+        const reviewsData = await reviewsRes.json();
+        setReviews(reviewsData);
       }
     } catch (error) {
       console.error("Failed to fetch admin data:", error);
@@ -115,6 +131,12 @@ export default function AdminPanel() {
               >
                 PROJECT SELECTIONS
               </button>
+              <button
+                className={`admin-tab ${activeTab === "reviews" ? "active" : ""}`}
+                onClick={() => setActiveTab("reviews")}
+              >
+                REVIEWS
+              </button>
             </div>
 
             <div className="admin-content">
@@ -150,7 +172,7 @@ export default function AdminPanel() {
                     ))
                   )}
                 </div>
-              ) : (
+              ) : activeTab === "projects" ? (
                 <div className="admin-list">
                   {purchases.length === 0 ? (
                     <div className="admin-empty">No project selections recorded</div>
@@ -169,6 +191,31 @@ export default function AdminPanel() {
                           <div className="admin-field">
                             <span className="field-label">SELECTED:</span>
                             <span className="field-value">{formatDate(purchase.purchaseTime)}</span>
+                          </div>
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
+              ) : (
+                <div className="admin-list">
+                  {reviews.length === 0 ? (
+                    <div className="admin-empty">No reviews submitted</div>
+                  ) : (
+                    reviews.map((review) => (
+                      <div key={review.id} className="admin-card">
+                        <div className="admin-card-header">
+                          <span className="admin-username">{review.username}</span>
+                          <span className="admin-badge">⭐ {review.rating}/5</span>
+                        </div>
+                        <div className="admin-card-body">
+                          <div className="admin-field">
+                            <span className="field-label">COMMENT:</span>
+                            <span className="field-value">{review.comment}</span>
+                          </div>
+                          <div className="admin-field">
+                            <span className="field-label">SUBMITTED:</span>
+                            <span className="field-value">{formatDate(review.createdAt)}</span>
                           </div>
                         </div>
                       </div>

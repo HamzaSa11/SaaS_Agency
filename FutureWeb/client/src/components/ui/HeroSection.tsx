@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
+import { useNavigation } from "../../lib/stores/useNavigation";
 
 export default function HeroSection() {
   const [typedText, setTypedText] = useState("");
   const [isHovered, setIsHovered] = useState(false);
+  const [clickCount, setClickCount] = useState(0);
+  const { navigateTo } = useNavigation();
   const fullText = "WELCOME TO THE FUTURE";
 
   useEffect(() => {
@@ -18,11 +21,35 @@ export default function HeroSection() {
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    const fetchClickCount = async () => {
+      try {
+        const res = await fetch("/api/clicks/count");
+        if (res.ok) {
+          const data = await res.json();
+          setClickCount(data.count);
+        }
+      } catch (error) {
+        console.error("Failed to fetch click count:", error);
+      }
+    };
+    fetchClickCount();
+  }, []);
+
   const handleHeaderClick = () => {
     const container = document.querySelector('.content-container');
     if (container) {
       container.scrollTo({ top: 0, behavior: 'smooth' });
     }
+  };
+
+  const handleInitializeClick = async () => {
+    try {
+      await fetch("/api/clicks", { method: "POST" });
+    } catch (error) {
+      console.error("Failed to log click:", error);
+    }
+    navigateTo('projects');
   };
 
   return (
@@ -43,7 +70,7 @@ export default function HeroSection() {
         
         <div className="hero-stats">
           <div className="stat-item">
-            <span className="stat-number">2087</span>
+            <span className="stat-number">{clickCount}</span>
             <span className="stat-label">CONNECTIONS</span>
           </div>
           <div className="stat-divider"></div>
@@ -59,7 +86,7 @@ export default function HeroSection() {
         </div>
         
         <div className="hero-actions">
-          <button className="cta-button primary">
+          <button className="cta-button primary" onClick={handleInitializeClick}>
             <span>INITIALIZE</span>
             <div className="button-glow"></div>
           </button>

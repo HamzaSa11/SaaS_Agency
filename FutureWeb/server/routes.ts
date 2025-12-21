@@ -2,7 +2,7 @@ import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import bcrypt from "bcryptjs";
 import { storage } from "./storage";
-import { insertUserSchema, insertPurchaseSchema } from "@shared/schema";
+import { insertUserSchema, insertPurchaseSchema, insertReviewSchema } from "@shared/schema";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Authentication routes
@@ -123,6 +123,53 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return res.json(purchases);
     } catch (error) {
       console.error("Get all purchases error:", error);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+  // Review routes
+  app.post("/api/reviews", async (req: Request, res: Response) => {
+    try {
+      const parsed = insertReviewSchema.safeParse(req.body);
+      if (!parsed.success) {
+        return res.status(400).json({ error: "Invalid input", details: parsed.error.errors });
+      }
+
+      const review = await storage.createReview(parsed.data);
+      return res.status(201).json({ message: "Review recorded", review });
+    } catch (error) {
+      console.error("Review error:", error);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+  app.get("/api/reviews", async (_req: Request, res: Response) => {
+    try {
+      const reviews = await storage.getAllReviews();
+      return res.json(reviews);
+    } catch (error) {
+      console.error("Get reviews error:", error);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+  // Click tracking routes
+  app.post("/api/clicks", async (_req: Request, res: Response) => {
+    try {
+      await storage.createClick();
+      return res.status(201).json({ message: "Click recorded" });
+    } catch (error) {
+      console.error("Click error:", error);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+  app.get("/api/clicks/count", async (_req: Request, res: Response) => {
+    try {
+      const count = await storage.getClickCount();
+      return res.json({ count });
+    } catch (error) {
+      console.error("Get click count error:", error);
       return res.status(500).json({ error: "Internal server error" });
     }
   });

@@ -6,12 +6,16 @@ import {
   users, 
   loginEvents, 
   purchases,
+  reviews,
+  clicks,
   type User, 
   type InsertUser,
   type LoginEvent,
   type InsertLoginEvent,
   type Purchase,
-  type InsertPurchase
+  type InsertPurchase,
+  type Review,
+  type InsertReview
 } from "@shared/schema";
 
 neonConfig.webSocketConstructor = ws;
@@ -31,6 +35,12 @@ export interface IStorage {
   createPurchase(purchase: InsertPurchase): Promise<Purchase>;
   getPurchasesByUser(userId: number): Promise<Purchase[]>;
   getAllPurchases(): Promise<Purchase[]>;
+
+  createReview(review: InsertReview): Promise<Review>;
+  getAllReviews(): Promise<Review[]>;
+
+  createClick(): Promise<void>;
+  getClickCount(): Promise<number>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -73,6 +83,24 @@ export class DatabaseStorage implements IStorage {
 
   async getAllPurchases(): Promise<Purchase[]> {
     return await db.select().from(purchases);
+  }
+
+  async createReview(review: InsertReview): Promise<Review> {
+    const result = await db.insert(reviews).values(review).returning();
+    return result[0];
+  }
+
+  async getAllReviews(): Promise<Review[]> {
+    return await db.select().from(reviews);
+  }
+
+  async createClick(): Promise<void> {
+    await db.insert(clicks).values({});
+  }
+
+  async getClickCount(): Promise<number> {
+    const result = await db.select({ count: clicks.id }).from(clicks);
+    return result.length;
   }
 }
 

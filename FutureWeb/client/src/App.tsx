@@ -17,6 +17,7 @@ import AdminPanel from "./components/ui/AdminPanel";
 import CartDrawer from "./components/ui/CartDrawer";
 import CheckoutModal from "./components/ui/CheckoutModal";
 import FloatingCartButton from "./components/ui/FloatingCartButton";
+import ReviewModal from "./components/ui/ReviewModal";
 import { useNavigation } from "./lib/stores/useNavigation";
 import { useAudio } from "./lib/stores/useAudio";
 import { useAuth } from "./lib/stores/useAuth";
@@ -80,6 +81,7 @@ function LoadingScreen() {
 
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isReviewOpen, setIsReviewOpen] = useState(false);
   const { currentSection } = useNavigation();
   const { toggleMute } = useAudio();
   const { isAuthenticated } = useAuth();
@@ -155,6 +157,18 @@ function App() {
         <FloatingCartButton />
         <CartDrawer />
         <CheckoutModal />
+
+        {/* Review Modal */}
+        <ReviewModal isOpen={isReviewOpen} onClose={() => setIsReviewOpen(false)} />
+
+        {/* Review Button */}
+        <button
+          className="review-btn"
+          onClick={() => setIsReviewOpen(true)}
+          title="Leave a Review"
+        >
+          ✏️
+        </button>
       </KeyboardControls>
     </div>
   );
