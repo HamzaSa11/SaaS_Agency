@@ -59,7 +59,7 @@ body {
   background-repeat: repeat;
   background-size: 200px 200px;
   background-position: 0 0;
-  animation: starfield 20s linear infinite;
+  animation: starfield 20s linear forwards;
   overflow: hidden;
 }
 
@@ -571,7 +571,7 @@ body {
   color: #FF6600;
   text-transform: uppercase;
   letter-spacing: 3px;
-  margin: 0;
+  margin: 5rem 0 0 0;
   text-shadow: 
     0 0 8px rgba(255, 102, 0, 0.7),
     0 0 16px rgba(255, 102, 0, 0.5),
