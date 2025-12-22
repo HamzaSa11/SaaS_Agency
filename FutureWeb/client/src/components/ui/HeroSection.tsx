@@ -5,7 +5,7 @@ export default function HeroSection() {
   const [typedText, setTypedText] = useState("");
   const [isHovered, setIsHovered] = useState(false);
   const [clickCount, setClickCount] = useState(0);
-  const { navigateTo } = useNavigation();
+  const { setCurrentSection } = useNavigation();
   const fullText = "WELCOME TO THE FUTURE";
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export default function HeroSection() {
     } catch (error) {
       console.error("Failed to log click:", error);
     }
-    navigateTo('projects');
+    setCurrentSection('projects');
   };
 
   return (
