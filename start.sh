@@ -7,5 +7,6 @@ fi
 
 cd FutureWeb
 npm install
+npm run db:push
 npm run build
 npm start
