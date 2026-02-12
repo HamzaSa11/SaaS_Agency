@@ -13,6 +13,7 @@ interface AuthState {
   error: string | null;
   login: (username: string, password: string) => Promise<boolean>;
   register: (username: string, password: string) => Promise<boolean>;
+  guestLogin: () => void;
   logout: () => void;
   clearError: () => void;
 }
@@ -83,6 +84,15 @@ export const useAuth = create<AuthState>()(
           set({ isLoading: false, error: "Network error. Please try again." });
           return false;
         }
+      },
+
+      guestLogin: () => {
+        set({
+          user: { id: 9999, username: "GUEST_USER" },
+          isAuthenticated: true,
+          isLoading: false,
+          error: null,
+        });
       },
 
       logout: () => {

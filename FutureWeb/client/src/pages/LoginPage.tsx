@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { useAuth } from "../lib/stores/useAuth";
 import LoadingScene from "../components/3d/LoadingScene";
+import { User, Shield } from "lucide-react";
 
 export default function LoginPage() {
   const [isLoginMode, setIsLoginMode] = useState(true);
@@ -9,7 +10,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const { login, register, isLoading, error, clearError } = useAuth();
+  const { login, register, guestLogin, isLoading, error, clearError } = useAuth();
 
   useEffect(() => {
     clearError();
@@ -169,6 +170,27 @@ export default function LoginPage() {
               {isLoginMode
                 ? "Need an account? Create Identity"
                 : "Already have an account? Login"}
+            </button>
+          </div>
+
+          <div className="guest-access-divider">
+            <div className="divider-line"></div>
+            <span className="divider-text">OR</span>
+            <div className="divider-line"></div>
+          </div>
+
+          <div className="guest-login-section">
+            <button
+              type="button"
+              onClick={() => guestLogin()}
+              className="cyber-button guest-btn"
+              disabled={isLoading}
+            >
+              <span className="button-content">
+                <User className="guest-icon" size={18} />
+                GUEST ACCESS
+              </span>
+              <div className="button-glow"></div>
             </button>
           </div>
 
