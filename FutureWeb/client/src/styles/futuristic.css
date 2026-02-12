@@ -2684,3 +2684,43 @@ body {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.guest-access-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  opacity: 0.6;
+}
+
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--primary-cyan), transparent);
+}
+
+.divider-text {
+  font-size: 0.7rem;
+  font-family: 'Courier New', monospace;
+  color: var(--primary-cyan);
+}
+
+.guest-login-section {
+  display: flex;
+  justify-content: center;
+}
+
+.guest-btn {
+  width: 100%;
+  border-color: var(--primary-purple) !important;
+  background: rgba(102, 0, 255, 0.1) !important;
+}
+
+.guest-btn:hover {
+  box-shadow: 0 0 20px rgba(102, 0, 255, 0.4) !important;
+}
+
+.guest-icon {
+  margin-right: 8px;
+  color: var(--primary-purple);
+}
